@@ -1,0 +1,42 @@
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEditor.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEngine.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Mono.Cecil.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Unity.DataContract.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEngine.xml
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEditor.xml
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Vasiliev_Notaylor\House & Meteors\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Vasiliev_Notaylor\House & Meteors\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Vasiliev_Notaylor\House & Meteors\obj\Debug\Assembly-CSharp.dll
+D:\Vasiliev_Notaylor\House & Meteors\obj\Debug\Assembly-CSharp.pdb
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEditor.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEngine.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Mono.Cecil.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Unity.DataContract.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEngine.xml
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEditor.xml
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\obj\Debug\Assembly-CSharp.dll
+D:\Unity 5.4.4f1\Unity Projects\House & Meteors\obj\Debug\Assembly-CSharp.pdb
