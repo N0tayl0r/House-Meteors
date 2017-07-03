@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class UIController : MonoBehaviour
-{    
+{
 	public void OnPauseResumeButtonClick()
 	{
 		if (!m_waveController.WaveInProcess)
@@ -113,7 +113,11 @@ public class UIController : MonoBehaviour
 		m_shopController = FindObjectOfType<ShopController>();
         m_bonusController = FindObjectOfType<BonusController>();
         m_sceneController = FindObjectOfType<SceneController>();
+        m_profile = FindObjectOfType<Profile>();
 
+        m_counterDoublePointsText.text = "" + m_profile.GetBoughtBonus(BonusType.DoublePoints);
+        m_counterTimeSlowText.text = "" + m_profile.GetBoughtBonus(BonusType.TimeSlow);
+        m_scoreText.text = "Score: " + m_profile.GetScore(m_sceneController.Score);
 
         m_shopController.EventBonusBought += OnBonusCountChanged;
         m_bonusController.EventBonusCountIncreased += OnBonusCountChanged;
@@ -182,4 +186,5 @@ public class UIController : MonoBehaviour
 	private ShopController m_shopController = null;
     private BonusController m_bonusController = null;
     private SceneController m_sceneController = null;
+    private Profile m_profile = null;
 }

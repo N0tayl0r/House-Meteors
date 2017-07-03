@@ -15,6 +15,7 @@ public class Profile : MonoBehaviour
     {
         m_boughtRoofsIndex = PlayerPrefs.GetString(m_boughtRoofsKey, "0");
         m_activeRoofIndex = PlayerPrefs.GetString(m_activeRoofKey, "0");
+        m_currentScoreIndex = PlayerPrefs.GetString(m_currentScoreKey, "0");
     }
 
     void Update()

@@ -55,7 +55,9 @@ public class WaveController : MonoBehaviour
             {
                 if (currType == currMeteor.m_type)
                 {
+                    float posX = Random.Range(-5.0f, 4.0f);
                     GameObject meteor = Instantiate(currMeteor.m_prefab);
+                    meteor.transform.position = new Vector2(posX, 6.7f);
                     float rotationZ = Random.Range(0f, 360f);
                     meteor.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
                     m_timer = 0.0f;
