@@ -4,7 +4,25 @@ using System.Collections;
 
 public class UIController : MonoBehaviour
 {
-	public void OnPauseResumeButtonClick()
+    public void OnExitButtonClick()
+    {
+        Application.Quit();
+    }
+
+    public void OnMainMenuContinueButtonClick()
+    {
+        m_menuBackground.SetActive(false);
+        m_mainMenu.SetActive(false);
+    }
+
+    public void OnMainMenuShopButtonCLick()
+    {
+        m_mainMenu.SetActive(false);
+        m_shopMenu.SetActive(true);
+        m_back = ShopBackVariants.MainMenu;
+    }
+
+    public void OnPauseResumeButtonClick()
 	{
 		if (!m_waveController.WaveInProcess)
 		{
@@ -44,12 +62,21 @@ public class UIController : MonoBehaviour
 	{
 		m_pauseMenu.SetActive(false);
         m_shopMenu.SetActive(true);
+        m_back = ShopBackVariants.PauseMenu;
 	}
 
     public void OnShopBackButtonClick()
     {
 		m_shopMenu.SetActive(false);
-		m_pauseMenu.SetActive(true);
+
+        if(m_back == ShopBackVariants.MainMenu)
+        {
+            m_mainMenu.SetActive(true);
+        }
+        else
+        {
+            m_pauseMenu.SetActive(true);
+        }
     }
 
 	public void StartWaveUI()
@@ -109,6 +136,8 @@ public class UIController : MonoBehaviour
 
     void Start()
 	{
+        //m_mainMenuFlag = true;
+
 		m_waveController = FindObjectOfType<WaveController>();
 		m_shopController = FindObjectOfType<ShopController>();
         m_bonusController = FindObjectOfType<BonusController>();
@@ -117,7 +146,7 @@ public class UIController : MonoBehaviour
 
         m_counterDoublePointsText.text = "" + m_profile.GetBoughtBonus(BonusType.DoublePoints);
         m_counterTimeSlowText.text = "" + m_profile.GetBoughtBonus(BonusType.TimeSlow);
-        m_scoreText.text = "Score: " + m_profile.GetScore(m_sceneController.Score);
+        m_scoreText.text = "Score: " + m_profile.GetScore();
 
         m_shopController.EventBonusBought += OnBonusCountChanged;
         m_bonusController.EventBonusCountIncreased += OnBonusCountChanged;
@@ -127,7 +156,12 @@ public class UIController : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
+        if (m_mainMenu.activeSelf)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			m_pause = !m_pause;
 			if (m_pause)
@@ -163,7 +197,9 @@ public class UIController : MonoBehaviour
 	private GameObject m_startWaveButton = null;
 	[SerializeField]
 	private GameObject m_pauseMenu = null;
-	[SerializeField]
+    [SerializeField]
+    private GameObject m_mainMenu = null;
+    [SerializeField]
 	private GameObject m_roofShopMenu = null;
 	[SerializeField]
 	private GameObject m_bonusShopMenu = null;
@@ -182,9 +218,16 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Text m_scoreText = null;
 	private bool m_pause = false;
+    private bool m_mainMenuFlag = false;
 	private WaveController m_waveController = null;
 	private ShopController m_shopController = null;
     private BonusController m_bonusController = null;
     private SceneController m_sceneController = null;
     private Profile m_profile = null;
+    private ShopBackVariants m_back = ShopBackVariants.MainMenu;
+    private enum ShopBackVariants
+    {
+        MainMenu,
+        PauseMenu
+    }
 }

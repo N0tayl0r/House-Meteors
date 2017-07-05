@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Profile : MonoBehaviour
@@ -15,7 +16,7 @@ public class Profile : MonoBehaviour
     {
         m_boughtRoofsIndex = PlayerPrefs.GetString(m_boughtRoofsKey, "0");
         m_activeRoofIndex = PlayerPrefs.GetString(m_activeRoofKey, "0");
-        m_currentScoreIndex = PlayerPrefs.GetString(m_currentScoreKey, "0");
+        m_currentScoreIndex = PlayerPrefs.GetInt(m_currentScoreKey, 0);
     }
 
     void Update()
@@ -26,6 +27,7 @@ public class Profile : MonoBehaviour
     public void ClearProfile()
     {
         PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
     }
 
     public void SetBoughtRoofNumber(string b)
@@ -53,9 +55,9 @@ public class Profile : MonoBehaviour
         PlayerPrefs.SetInt(m_currentScoreKey, score);
     }
 
-    public int GetScore(int score)
+    public int GetScore()
     {
-        return PlayerPrefs.GetInt(m_currentScoreKey, score);
+        return PlayerPrefs.GetInt(m_currentScoreKey);
     }
 
     public string BoughtRoofIndex
@@ -68,7 +70,7 @@ public class Profile : MonoBehaviour
         get { return m_activeRoofIndex; }
     }
 
-    public string CurrentScoreIndex
+    public int CurrentScoreIndex
     {
         get { return m_currentScoreIndex; }
     }
@@ -79,5 +81,5 @@ public class Profile : MonoBehaviour
 
     private string m_boughtRoofsIndex = string.Empty;
     private string m_activeRoofIndex = string.Empty;
-    private string m_currentScoreIndex = string.Empty;
+    private int m_currentScoreIndex = 0;
 }

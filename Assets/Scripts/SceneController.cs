@@ -20,7 +20,7 @@ public class SceneController : MonoBehaviour
     {
         m_profile = FindObjectOfType<Profile>();
 
-        m_currentScore = m_profile.CurrentScoreIndex;        
+        m_score = m_profile.CurrentScoreIndex;
     }
 
     void Update()
@@ -46,9 +46,6 @@ public class SceneController : MonoBehaviour
                     Vector2 position = meteor.gameObject.transform.position;
                     if (meteor.DestroyMeteor())
                     {
-                        m_currentScore = m_score.ToString();
-                        m_profile.GetScore(m_score);
-                        Debug.Log(m_profile.GetScore(m_score));
                         m_score += meteor.ScorePoints * ScoreMultiplier;
                         m_profile.SetScore(m_score);
                         Debug.Log("Score saved: " + m_score);
@@ -121,5 +118,4 @@ public class SceneController : MonoBehaviour
     private int m_scoreMultiplier = 1;
     private int m_score = 0;
     private Profile m_profile = null;
-    private string m_currentScore = string.Empty;
 }
