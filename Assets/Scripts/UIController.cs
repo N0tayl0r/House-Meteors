@@ -1,9 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
+
+    public void ClearProfile() // Aka "New Game"
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnUIMenuButtonClick()
+    {
+        m_pause = !m_pause;
+        if (m_back == ShopBackVariantsEnum.MainMenu)
+        {
+            if (m_pause)
+            {
+                m_startWaveButton.SetActive(false);
+                Time.timeScale = 0;
+                m_menuBackground.SetActive(true);
+                m_mainMenu.SetActive(true);
+                Debug.Log("Wave in process: " + m_waveController.WaveInProcess);
+            }
+        }
+        else if (m_back == ShopBackVariantsEnum.PauseMenu)
+        {
+            if (m_pause)
+            {
+                Time.timeScale = 0;
+                m_menuBackground.SetActive(true);
+                m_pauseMenu.SetActive(true);
+            }
+        }
+    }
+
     public void OnExitButtonClick()
     {
         Application.Quit();
@@ -11,15 +44,18 @@ public class UIController : MonoBehaviour
 
     public void OnMainMenuContinueButtonClick()
     {
+        m_pause = false;
         m_menuBackground.SetActive(false);
         m_mainMenu.SetActive(false);
+        m_startWaveButton.SetActive(true);
+        Time.timeScale = 1;
     }
 
     public void OnMainMenuShopButtonCLick()
     {
         m_mainMenu.SetActive(false);
         m_shopMenu.SetActive(true);
-        m_back = ShopBackVariants.MainMenu;
+        m_back = ShopBackVariantsEnum.MainMenu;
     }
 
     public void OnPauseResumeButtonClick()
@@ -62,14 +98,14 @@ public class UIController : MonoBehaviour
 	{
 		m_pauseMenu.SetActive(false);
         m_shopMenu.SetActive(true);
-        m_back = ShopBackVariants.PauseMenu;
+        m_back = ShopBackVariantsEnum.PauseMenu;
 	}
 
     public void OnShopBackButtonClick()
     {
 		m_shopMenu.SetActive(false);
 
-        if(m_back == ShopBackVariants.MainMenu)
+        if(m_back == ShopBackVariantsEnum.MainMenu)
         {
             m_mainMenu.SetActive(true);
         }
@@ -135,9 +171,7 @@ public class UIController : MonoBehaviour
     }
 
     void Start()
-	{
-        //m_mainMenuFlag = true;
-
+	{        
 		m_waveController = FindObjectOfType<WaveController>();
 		m_shopController = FindObjectOfType<ShopController>();
         m_bonusController = FindObjectOfType<BonusController>();
@@ -156,39 +190,56 @@ public class UIController : MonoBehaviour
 
 	void Update()
 	{
-        if (m_mainMenu.activeSelf)
+        if (!m_waveController.WaveInProcess)
         {
-            return;
+            m_back = ShopBackVariantsEnum.MainMenu;
         }
+        else
+        {
+            m_back = ShopBackVariantsEnum.PauseMenu;
+        }
+
+        //if (m_mainMenu.activeSelf)
+        //{
+        //    return;
+        //}
 
         if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			m_pause = !m_pause;
-			if (m_pause)
-			{
-				if (!m_waveController.WaveInProcess)
-				{
-					m_startWaveButton.SetActive(false);
-				}
-				m_pause = true;
-				Time.timeScale = 0;
-				m_menuBackground.SetActive(true);
-				m_pauseMenu.SetActive(true);
-			}
-			else
-			{
-				if (!m_waveController.WaveInProcess)
-				{
-					m_startWaveButton.SetActive(true);
-				}
-				m_pause = false;
-				Time.timeScale = 1;
-				m_menuBackground.SetActive(false);
-				m_roofShopMenu.SetActive(false);
-				m_bonusShopMenu.SetActive(false);
-				m_pauseMenu.SetActive(false);
-			}
-
+            m_pause = !m_pause;
+            if (m_back == ShopBackVariantsEnum.MainMenu)
+            {
+                if (m_pause)
+                {
+                    m_startWaveButton.SetActive(false);
+                    Time.timeScale = 0;
+                    m_menuBackground.SetActive(true);
+                    m_mainMenu.SetActive(true);
+                    Debug.Log("Wave in process: " + m_waveController.WaveInProcess);
+                }
+                else
+                {
+                    m_startWaveButton.SetActive(true);
+                    Time.timeScale = 1;
+                    m_menuBackground.SetActive(false);
+                    m_mainMenu.SetActive(false);
+                }
+            }
+            else if (m_back == ShopBackVariantsEnum.PauseMenu)
+            {
+                if (m_pause)
+                {
+                    Time.timeScale = 0;
+                    m_menuBackground.SetActive(true);
+                    m_pauseMenu.SetActive(true);
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                    m_menuBackground.SetActive(false);
+                    m_pauseMenu.SetActive(false);
+                }
+            }
 		}
 
 	}
@@ -224,10 +275,5 @@ public class UIController : MonoBehaviour
     private BonusController m_bonusController = null;
     private SceneController m_sceneController = null;
     private Profile m_profile = null;
-    private ShopBackVariants m_back = ShopBackVariants.MainMenu;
-    private enum ShopBackVariants
-    {
-        MainMenu,
-        PauseMenu
-    }
+    private ShopBackVariantsEnum m_back = ShopBackVariantsEnum.MainMenu;
 }

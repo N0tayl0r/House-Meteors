@@ -35,6 +35,21 @@ public class ShopItemBonus : MonoBehaviour
         m_bonusesCount.text = m_bonusCountMultiplier.ToString();
     }
 
+    public void Inp(string s)
+    {
+        Debug.Log(s);
+        m_bonusCountMultiplier = 0;
+        if (int.TryParse(s, out m_bonusCountMultiplier))
+        {
+            m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+        }
+        else
+        {
+            //m_bonusCountMultiplier.ToString = "1";
+        }
+
+    }
+
     public BonusType Type
     {
         get { return m_type; }

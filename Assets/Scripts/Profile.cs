@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Profile : MonoBehaviour
@@ -22,12 +21,6 @@ public class Profile : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public void ClearProfile()
-    {
-        PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(0);
     }
 
     public void SetBoughtRoofNumber(string b)

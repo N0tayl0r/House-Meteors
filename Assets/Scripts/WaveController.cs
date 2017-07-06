@@ -26,7 +26,6 @@ public class WaveController : MonoBehaviour
         // сбрасывает в 0 индекс метеоритов
         // выставляет  в true флаг m_waveInProcess
         //MeteorType currentIndexM;
-
         if (m_indexWave >= m_wavesList.Count)
         {
             return;
