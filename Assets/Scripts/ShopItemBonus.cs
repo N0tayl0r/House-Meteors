@@ -45,7 +45,7 @@ public class ShopItemBonus : MonoBehaviour
         }
         else
         {
-            //m_bonusCountMultiplier.ToString = "1";
+             m_bonusMultiplierInputField.text = "1";
         }
 
     }
@@ -86,6 +86,8 @@ public class ShopItemBonus : MonoBehaviour
     private Image m_roofImage = null;
     [SerializeField]
     private Text m_priceText = null;
+    [SerializeField]
+    private InputField m_bonusMultiplierInputField = null;
     [SerializeField]
     private Text m_descriptionText = null;
     [SerializeField]

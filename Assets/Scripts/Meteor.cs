@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Meteor : MonoBehaviour {
+public class Meteor : MonoBehaviour
+{
 
-	void Start () 
+    void Start()
     {
         m_isCanCalc = false;
-	}
+    }
 
-	void Update () 
+    void Update()
     {
-	    
-	}
+
+    }
 
     public bool DestroyMeteor()
     {
@@ -24,9 +25,26 @@ public class Meteor : MonoBehaviour {
         return false;
     }
 
-    void OnTriggerEnter2D (Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         m_isCanCalc = true;
+    }
+
+    public void OnCollisionEnter2D()
+    {
+        ParticleSystem[] effects = GetComponentsInChildren<ParticleSystem>();
+        foreach (var effect in effects)
+        {
+            var e = effect.emission;
+            e.enabled = false;
+            Destroy(effect.gameObject);
+        }
+
+        ParticleSystem[] inactiveEffects = GetComponentsInChildren<ParticleSystem>(true);
+        foreach (var effect in inactiveEffects)
+        {
+            effect.gameObject.SetActive(true);
+        }        
     }
 
     public bool IsCanCalc
@@ -43,13 +61,13 @@ public class Meteor : MonoBehaviour {
     {
         get { return m_mass; }
     }
-	public int ScorePoints
-	{
-		get { return m_scorePoints; }
-	}
+    public int ScorePoints
+    {
+        get { return m_scorePoints; }
+    }
 
-	[SerializeField]
-	private int m_scorePoints = 0;
+    [SerializeField]
+    private int m_scorePoints = 0;
     [SerializeField]
     private Rigidbody2D m_meteorRB = null;
     [SerializeField]
@@ -59,4 +77,5 @@ public class Meteor : MonoBehaviour {
     [SerializeField]
     private MeteorType m_meteorType = MeteorType.Large;
     private bool m_isCanCalc = false;
+    private ParticleSystem m_trail = null;
 }

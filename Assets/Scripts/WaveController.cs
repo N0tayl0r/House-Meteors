@@ -11,6 +11,8 @@ public class WaveController : MonoBehaviour
     {
         public MeteorType m_type;
         public GameObject m_prefab;
+        public ParticleSystem m_trailEffect;
+        public ParticleSystem m_hitEffect;
     }
 
     void Start()
@@ -59,6 +61,13 @@ public class WaveController : MonoBehaviour
                     meteor.transform.position = new Vector2(posX, 6.7f);
                     float rotationZ = Random.Range(0f, 360f);
                     meteor.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+                    GameObject trailEffect = Instantiate(currMeteor.m_trailEffect.gameObject);
+                    trailEffect.gameObject.transform.SetParent(meteor.transform);
+                    trailEffect.transform.localPosition = Vector2.zero;
+                    GameObject hitEffect = Instantiate(currMeteor.m_hitEffect.gameObject);
+                    hitEffect.gameObject.transform.SetParent(meteor.transform);
+                    hitEffect.transform.localPosition = Vector2.zero;
+                    hitEffect.gameObject.SetActive(false);
                     m_timer = 0.0f;
                     m_meteors.Add(meteor.GetComponent<Meteor>());
                 }
