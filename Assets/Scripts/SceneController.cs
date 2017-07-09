@@ -44,15 +44,13 @@ public class SceneController : MonoBehaviour
                 if (meteor != null)
                 {
                     Vector2 position = meteor.gameObject.transform.position;
-                    ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
-                    Debug.Log(ps + "found!");
+                    ParticleSystem ps = meteor.GetComponentInChildren<ParticleSystem>();
                     ps.Play();
 
                     if (meteor.DestroyMeteor())
                     {
                         m_score += meteor.ScorePoints * ScoreMultiplier;
                         m_profile.SetScore(m_score);
-                        Debug.Log("Score saved: " + m_score);
                         m_meteors.Remove(meteor);
                         BonusController bc = FindObjectOfType<BonusController>();
                         bc.CreateBonusActivator(position);

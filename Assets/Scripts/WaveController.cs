@@ -67,7 +67,6 @@ public class WaveController : MonoBehaviour
                     GameObject hitEffect = Instantiate(currMeteor.m_hitEffect.gameObject);
                     hitEffect.gameObject.transform.SetParent(meteor.transform);
                     hitEffect.transform.localPosition = Vector2.zero;
-                    hitEffect.gameObject.SetActive(false);
                     m_timer = 0.0f;
                     m_meteors.Add(meteor.GetComponent<Meteor>());
                 }
@@ -98,17 +97,13 @@ public class WaveController : MonoBehaviour
 
     [SerializeField]
     private List<Wave> m_wavesList = null;
-
     [SerializeField]
     private List<MeteorSpawnSettings> m_settings = new List<MeteorSpawnSettings>();
-
     [SerializeField]
     private float m_timeSettings = 0.0f;
     private float m_timer = 0.0f;
     private List<Meteor> m_meteors = new List<Meteor>();
-
     private Wave m_currentWave;
-
     private int m_indexWave = 0;
     private int m_indexMeteor = 0;
     private bool m_waveInProcess = false;

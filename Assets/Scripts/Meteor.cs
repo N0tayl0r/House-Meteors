@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Meteor : MonoBehaviour
 {
@@ -19,6 +20,17 @@ public class Meteor : MonoBehaviour
         m_durability--;
         if (m_durability == 0)
         {
+            m_effects = GetComponentsInChildren<ParticleSystem>();
+            foreach (var hit in m_effects)
+            {
+                if (hit.gameObject.name == "meteor_large_hit_effect(Clone)" || hit.gameObject.name == "meteor_medium_hit_effect(Clone)" || hit.gameObject.name == "meteor_small_hit_effect(Clone)")
+                {
+                    hit.gameObject.transform.SetParent(null);
+                    hit.Play();
+                    Destroy(hit.gameObject, hit.duration);
+                }
+            }
+
             Destroy(gameObject);
             return true;
         }
@@ -32,19 +44,23 @@ public class Meteor : MonoBehaviour
 
     public void OnCollisionEnter2D()
     {
-        ParticleSystem[] effects = GetComponentsInChildren<ParticleSystem>();
-        foreach (var effect in effects)
+        m_effects = GetComponentsInChildren<ParticleSystem>();
+        foreach (var trail in m_effects)
         {
-            var e = effect.emission;
-            e.enabled = false;
-            Destroy(effect.gameObject);
+            if (trail.gameObject.name == "meteor_large_trail_effect(Clone)" || trail.gameObject.name == "meteor_medium_trail_effect(Clone)" || trail.gameObject.name == "meteor_small_trail_effect(Clone)")
+            {
+                var e = trail.emission;
+                e.enabled = false;
+                Destroy(trail.gameObject);
+            }
         }
-
-        ParticleSystem[] inactiveEffects = GetComponentsInChildren<ParticleSystem>(true);
-        foreach (var effect in inactiveEffects)
+        foreach (var hit in m_effects)
         {
-            effect.gameObject.SetActive(true);
-        }        
+            if (hit.gameObject.name == "meteor_large_hit_effect(Clone)" || hit.gameObject.name == "meteor_medium_hit_effect(Clone)" || hit.gameObject.name == "meteor_small_hit_effect(Clone)")
+            {
+                hit.Play();
+            }
+        }
     }
 
     public bool IsCanCalc
@@ -77,5 +93,5 @@ public class Meteor : MonoBehaviour
     [SerializeField]
     private MeteorType m_meteorType = MeteorType.Large;
     private bool m_isCanCalc = false;
-    private ParticleSystem m_trail = null;
+    private ParticleSystem[] m_effects = null;
 }
