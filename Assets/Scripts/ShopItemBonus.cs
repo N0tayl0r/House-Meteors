@@ -1,9 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ShopItemBonus : MonoBehaviour
 {
+    void Start()
+    {
+        if (m_bonusCountMultiplier == 1)
+        {
+            m_decButton.interactable = false;
+        }
+    //    m_bonusMultiplierInputField.onValidateInput += delegate(string s, int charIndex, char addedChar) { return MyValidate(addedChar); };
+    //}
+
+    //private char MyValidate(char charToValidate)
+    //{
+    //    charToValidate = (char)m_bonusCountMultiplier;
+    //    if (m_bonusCountMultiplier <= 0)
+    //    {
+    //        charToValidate = '\0';
+    //    }
+    //    return charToValidate;
+    }
+
     public void BuyBonus()
     {
         ShopController shopController = FindObjectOfType<ShopController>();
@@ -23,31 +43,88 @@ public class ShopItemBonus : MonoBehaviour
 
     public void IncBonusCount()
     {
-        m_bonusCountMultiplier++;
-        m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
-        m_bonusesCount.text = m_bonusCountMultiplier.ToString();
+        if (m_bonusCountMultiplier < 99)
+        {
+            m_bonusCountMultiplier++;
+            m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+            m_bonusMultiplierInputField.text = m_bonusCountMultiplier.ToString();
+            if (m_decButton.interactable == false)
+            {
+                m_decButton.interactable = true;
+            }
+        }
+        if (m_bonusCountMultiplier == 99)
+        {
+            m_incButton.interactable = false;
+        }
     }
 
     public void DecBonusCount()
     {
-        m_bonusCountMultiplier--;
-        m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
-        m_bonusesCount.text = m_bonusCountMultiplier.ToString();
+        if (m_bonusCountMultiplier > 1)
+        {
+            m_bonusCountMultiplier--;
+            m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+            m_bonusMultiplierInputField.text = m_bonusCountMultiplier.ToString();
+            if (m_incButton.interactable == false)
+            {
+                m_incButton.interactable = true;
+            }
+        }
+        if (m_bonusCountMultiplier == 1)
+        {
+            m_decButton.interactable = false;
+        }
     }
 
-    public void Inp(string s)
+    public void InputBonusCount(string s)
     {
         Debug.Log(s);
-        m_bonusCountMultiplier = 0;
         if (int.TryParse(s, out m_bonusCountMultiplier))
         {
             m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+
+            if (m_bonusCountMultiplier == 99)
+            {
+                m_decButton.interactable = true;
+                m_incButton.interactable = false;
+            }
+            if (m_bonusCountMultiplier == 1)
+            {
+                m_incButton.interactable = true;
+                m_decButton.interactable = false;
+            }
         }
         else
         {
-             m_bonusMultiplierInputField.text = "1";
+            if (m_bonusMultiplierInputField.text == string.Empty)
+            {
+                return;
+            }
+            else
+            {
+                //MyValidate((char)m_bonusCountMultiplier);
+                m_bonusMultiplierInputField.text = "1";
+            }
         }
+    }
 
+    public void InputBonusCountEmpty(string s)
+    {
+        if (int.TryParse(s, out m_bonusCountMultiplier))
+        {
+            if (m_bonusMultiplierInputField.text == "0")
+            {
+                m_bonusMultiplierInputField.text = "1";
+            }
+        }
+        else
+        {
+            if (m_bonusMultiplierInputField.text == string.Empty)
+            {
+                m_bonusMultiplierInputField.text = "1";
+            }
+        }
     }
 
     public BonusType Type
@@ -87,15 +164,13 @@ public class ShopItemBonus : MonoBehaviour
     [SerializeField]
     private Text m_priceText = null;
     [SerializeField]
-    private InputField m_bonusMultiplierInputField = null;
-    [SerializeField]
     private Text m_descriptionText = null;
     [SerializeField]
-    private InputField m_bonusesCount = null;
+    private InputField m_bonusMultiplierInputField = null;
     [SerializeField]
-    private Button m_incBonusesCount = null;
+    private Button m_incButton = null;
     [SerializeField]
-    private Button m_decBonusesCount = null;
+    private Button m_decButton = null;
     [SerializeField]
     private int m_price = 0;
     private int m_bonusCountMultiplier = 1;
