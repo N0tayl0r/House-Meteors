@@ -15,16 +15,6 @@ public class HouseController : MonoBehaviour
 		public string m_descriptionText = null;
 	}
 
-	void Start () 
-	{
-		
-	}
-
-	void Update () 
-	{
-		
-	}
-
     public int GetPrice(RoofType type)
     {
         foreach (var b in m_roofSettings)

@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
+    public void OnRoofDestroyed()
+    {
+        // game over
+        m_menuBackground.SetActive(true);
+        m_gameOverScreen.SetActive(true);
+    }
 
     public void ClearProfile() // Aka "New Game"
     {
@@ -23,7 +29,6 @@ public class UIController : MonoBehaviour
                 Time.timeScale = 0;
                 m_menuBackground.SetActive(true);
                 m_mainMenu.SetActive(true);
-                Debug.Log("Wave in process: " + m_waveController.WaveInProcess);
             }
         }
         else if (m_back == ShopBackVariantsEnum.PauseMenu)
@@ -143,7 +148,8 @@ public class UIController : MonoBehaviour
 
         if (m_sceneController != null)
         {
-            m_sceneController.EventMeteorDestroyed -= OnScoreChanged;
+            m_sceneController.EventScoreChanged -= OnScoreChanged;
+            m_sceneController.EventRoofDestroyed -= OnRoofDestroyed;
         }
 	}
 
@@ -180,12 +186,13 @@ public class UIController : MonoBehaviour
 
         m_counterDoublePointsText.text = "" + m_profile.GetBoughtBonus(BonusType.DoublePoints);
         m_counterTimeSlowText.text = "" + m_profile.GetBoughtBonus(BonusType.TimeSlow);
-        m_scoreText.text = "Score: " + m_profile.GetScore();
+        m_scoreText.text = "Score: " + m_profile.CurrentScoreIndex;
 
         m_shopController.EventBonusBought += OnBonusCountChanged;
         m_bonusController.EventBonusCountIncreased += OnBonusCountChanged;
         m_bonusController.EventBonusCountDecreased += OnBonusCountChanged;
-        m_sceneController.EventMeteorDestroyed += OnScoreChanged;
+        m_sceneController.EventScoreChanged += OnScoreChanged;
+        m_sceneController.EventRoofDestroyed += OnRoofDestroyed;
     }
 
 	void Update()
@@ -215,7 +222,6 @@ public class UIController : MonoBehaviour
                     Time.timeScale = 0;
                     m_menuBackground.SetActive(true);
                     m_mainMenu.SetActive(true);
-                    Debug.Log("Wave in process: " + m_waveController.WaveInProcess);
                 }
                 else
                 {
@@ -268,6 +274,8 @@ public class UIController : MonoBehaviour
 	private Text m_counterTimeSlowText = null;
     [SerializeField]
     private Text m_scoreText = null;
+    [SerializeField]
+    private GameObject m_gameOverScreen = null;
 	private bool m_pause = false;
     private bool m_mainMenuFlag = false;
 	private WaveController m_waveController = null;

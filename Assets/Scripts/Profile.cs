@@ -18,11 +18,6 @@ public class Profile : MonoBehaviour
         m_currentScoreIndex = PlayerPrefs.GetInt(m_currentScoreKey, 0);
     }
 
-    void Update()
-    {
-
-    }
-
     public void SetBoughtRoofNumber(string b)
     {
         PlayerPrefs.SetString(m_boughtRoofsKey, b);
@@ -48,11 +43,6 @@ public class Profile : MonoBehaviour
         PlayerPrefs.SetInt(m_currentScoreKey, score);
     }
 
-    public int GetScore()
-    {
-        return PlayerPrefs.GetInt(m_currentScoreKey);
-    }
-
     public string BoughtRoofIndex
     {
         get { return m_boughtRoofsIndex; }
@@ -67,6 +57,12 @@ public class Profile : MonoBehaviour
     {
         get { return m_currentScoreIndex; }
     }
+
+    public void Save()
+    {
+        PlayerPrefs.Save();
+    }
+
 
     private const string m_boughtRoofsKey = "bought_roofs";
     private const string m_activeRoofKey = "active_roof";

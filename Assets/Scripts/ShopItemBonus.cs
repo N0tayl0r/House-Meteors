@@ -7,21 +7,23 @@ public class ShopItemBonus : MonoBehaviour
 {
     void Start()
     {
+        m_priceText.text = "Price: " + (m_price * m_bonusCountMultiplier).ToString();
+
         if (m_bonusCountMultiplier == 1)
         {
             m_decButton.interactable = false;
         }
-    //    m_bonusMultiplierInputField.onValidateInput += delegate(string s, int charIndex, char addedChar) { return MyValidate(addedChar); };
-    //}
+        //    m_bonusMultiplierInputField.onValidateInput += delegate(string s, int charIndex, char addedChar) { return MyValidate(addedChar); };
+        //}
 
-    //private char MyValidate(char charToValidate)
-    //{
-    //    charToValidate = (char)m_bonusCountMultiplier;
-    //    if (m_bonusCountMultiplier <= 0)
-    //    {
-    //        charToValidate = '\0';
-    //    }
-    //    return charToValidate;
+        //private char MyValidate(char charToValidate)
+        //{
+        //    charToValidate = (char)m_bonusCountMultiplier;
+        //    if (m_bonusCountMultiplier <= 0)
+        //    {
+        //        charToValidate = '\0';
+        //    }
+        //    return charToValidate;
     }
 
     public void BuyBonus()
@@ -33,11 +35,19 @@ public class ShopItemBonus : MonoBehaviour
 
         if (sceneController.Score >= bonusController.GetPrice(m_type))
         {
+            int currScore = sceneController.Score;
             int count = m_profile.GetBoughtBonus(Type);
-            count += BonusCountMultiplier;
+            count += m_bonusCountMultiplier;
+            currScore -= (m_price * m_bonusCountMultiplier);
+            m_profile.SetScore(currScore);
             m_profile.SetBoughtBonus(Type, count);
-
+            m_profile.Save();
+            sceneController.Score = currScore;
             shopController.BuyBonus(m_type);
+        }
+        else
+        {
+            Debug.Log("You don't have enough Points!");
         }
     }
 
@@ -46,7 +56,7 @@ public class ShopItemBonus : MonoBehaviour
         if (m_bonusCountMultiplier < 99)
         {
             m_bonusCountMultiplier++;
-            m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+            m_priceText.text = "Price: " + (m_price * m_bonusCountMultiplier).ToString();
             m_bonusMultiplierInputField.text = m_bonusCountMultiplier.ToString();
             if (m_decButton.interactable == false)
             {
@@ -64,7 +74,7 @@ public class ShopItemBonus : MonoBehaviour
         if (m_bonusCountMultiplier > 1)
         {
             m_bonusCountMultiplier--;
-            m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+            m_priceText.text = "Price: " + (m_price * m_bonusCountMultiplier).ToString();
             m_bonusMultiplierInputField.text = m_bonusCountMultiplier.ToString();
             if (m_incButton.interactable == false)
             {
@@ -82,7 +92,7 @@ public class ShopItemBonus : MonoBehaviour
         Debug.Log(s);
         if (int.TryParse(s, out m_bonusCountMultiplier))
         {
-            m_priceText.text = (m_price * m_bonusCountMultiplier).ToString();
+            m_priceText.text = "Price: " + (m_price * m_bonusCountMultiplier).ToString();
 
             if (m_bonusCountMultiplier == 99)
             {

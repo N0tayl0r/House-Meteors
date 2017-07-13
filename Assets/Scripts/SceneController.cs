@@ -5,7 +5,9 @@ using System.Collections.Generic;
 
 public class SceneController : MonoBehaviour
 {
-    public System.Action EventMeteorDestroyed;
+    //public System.Action EventMeteorDestroyed;
+    public System.Action EventScoreChanged;
+    public System.Action EventRoofDestroyed;
 
     public void SetRoof(GameObject roof)
     {
@@ -20,7 +22,7 @@ public class SceneController : MonoBehaviour
     {
         m_profile = FindObjectOfType<Profile>();
 
-        m_score = m_profile.CurrentScoreIndex;
+        Score = m_profile.CurrentScoreIndex;
     }
 
     void Update()
@@ -31,6 +33,11 @@ public class SceneController : MonoBehaviour
             if (CalcMass() >= rd)
             {
                 Destroy(m_roof.gameObject);
+                // event roof destroyed
+                if (EventRoofDestroyed != null)
+                {
+                    EventRoofDestroyed();
+                }
             }
         }
 
@@ -49,15 +56,15 @@ public class SceneController : MonoBehaviour
 
                     if (meteor.DestroyMeteor())
                     {
-                        m_score += meteor.ScorePoints * ScoreMultiplier;
+                        Score += meteor.ScorePoints * ScoreMultiplier;
                         m_profile.SetScore(m_score);
                         m_meteors.Remove(meteor);
                         BonusController bc = FindObjectOfType<BonusController>();
                         bc.CreateBonusActivator(position);
-                        if (EventMeteorDestroyed != null)
-                        {
-                            EventMeteorDestroyed();
-                        }
+                        //if (EventMeteorDestroyed != null)
+                        //{
+                        //    EventMeteorDestroyed();
+                        //}
                     }
                 }
 
@@ -106,6 +113,14 @@ public class SceneController : MonoBehaviour
     public int Score
     {
         get { return m_score; }
+        set
+        {
+            m_score = value;
+            if (EventScoreChanged != null)
+            {
+                EventScoreChanged();
+            }
+        }
     }
 
     [SerializeField]

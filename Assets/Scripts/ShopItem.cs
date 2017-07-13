@@ -10,12 +10,23 @@ public class ShopItem : MonoBehaviour
         ShopController shopController = FindObjectOfType<ShopController>();
         SceneController sceneController = FindObjectOfType<SceneController>();
         HouseController houseController = FindObjectOfType<HouseController>();
+        Profile profile = FindObjectOfType<Profile>();
+
         if (sceneController.Score >= houseController.GetPrice(m_type))
         {
+            int currScore = sceneController.Score;
+            currScore -= houseController.GetPrice(m_type);
             shopController.BuyRoofUpgrade(m_type);
             Bought = true;
             Apply = true;
             ButtonChange();
+            profile.SetScore(currScore);
+            profile.Save();
+            sceneController.Score = currScore;
+        }
+        else
+        {
+            Debug.Log("You don't have enough Points!");
         }
     }
 
